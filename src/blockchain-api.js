@@ -297,13 +297,13 @@ function get_ticker(successCallback, errorCallback) {
 
   $.ajax({
     type: "GET",
-    dataType: 'json',
+    dataType: 'text',
     url: getRootURL() +'ticker',
     data: {format : 'json', api_code : WalletStore.getAPICode()},
     timeout: AJAX_TIMEOUT,
     success: function(data) {
       WalletStore.sendEvent('ticker_updated');
-      successCallback(data);
+      successCallback(parseFloat(data.replace(/,/g, '')));
     },
     error : function(e) {
       console.log(e);
